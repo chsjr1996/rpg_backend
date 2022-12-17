@@ -15,7 +15,7 @@ class Game
      * @todo All game will be an API/socket (Swoole)
      * @todo The game loop will be controled by the frontend application
      */
-    public function run()
+    public static function run(): array
     {
         $mainChars = collection([MainChars::SOLRAC]);
         $partyChars = $mainChars->map(fn ($char) => (new Char())->make($char))->toArray();
@@ -24,6 +24,6 @@ class Game
         Actions::addStatus($partyChars, MainChars::SOLRAC, Statuses::SHELL);
         Actions::addStatus($partyChars, MainChars::SOLRAC, Statuses::FAITH);
 
-        dd('Running!', ['main_chars' => $partyChars]);
+        return $partyChars;
     }
 }

@@ -16,6 +16,7 @@
         "symfony/property-access": "^6.2"
     },
     "require-dev": {
-        "symfony/var-dumper": "^6.2"
+        "symfony/var-dumper": "^6.2",
+        "openswoole/ide-helper": "~4.11.0"
     }
 }

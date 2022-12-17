@@ -1,11 +1,10 @@
 <?php
 
-use App\Game;
+use App\SwooleServer;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
 /**
- * Create a new game
+ * Create a new game Server
  */
-$game = new Game();
-$game->run();
+SwooleServer::start();

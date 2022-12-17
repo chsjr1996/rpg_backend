@@ -1,0 +1,12 @@
+version: "3"
+services:
+  app:
+    build: .
+    container_name: rpg_backend_app
+    command: php /app/index.php
+    ports:
+      - "9501:9501"
+    volumes:
+      - .:/app
+    networks:
+      - default
