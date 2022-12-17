@@ -1,0 +1,18 @@
+{
+    "name": "chsjr1996/ffxii_backend",
+    "description": "Backend for RPG games based on FFXII",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "require": {
+        "doctrine/collections": "^2.1",
+        "symfony/property-access": "^6.2"
+    },
+    "require-dev": {
+        "symfony/var-dumper": "^6.2"
+    }
+}
