@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RPG Backend Engine | Socket sample</title>
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #messages {
+            width: 200px;
+            height: 200px;
+            border: 1px solid #cccc;
+            overflow: scroll;
+            padding: 5px;
+        }
+
+        #messages .chat-other {
+            text-align: left;
+        }
+
+        #messages .chat-me {
+            text-align: right;
+        }
+
+        #form {
+            width: 200px;
+            margin-top: 20px;
+        }
+
+        #form button {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Socket test</h1>
+        <div id="messages"></div>
+        <form id="form">
+            <label for="message">Message:</label>
+            <input type="text" id="message" name="message"/>
+            <button type="submit">Send</button>
+        </form>
+    </div>
+
+    <script>
+        var ws = new WebSocket('ws://localhost:9502');
+        var form = document.getElementById('form');
+        var message = document.getElementById('message');
+        var messages = document.getElementById('messages');
+
+        function addMessage(text, other) {
+            messages.innerHTML += `<p class="${other ? 'chat-other' : 'chat-me'}"><strong>${other ? 'Outro:' : 'Eu:'}</strong> ${text}</p>`;
+        }
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            var messageValue = message.value;
+
+            if (!messageValue) {
+                return;
+            }
+
+            ws.send(JSON.stringify({
+                message: messageValue,
+            }));
+            addMessage(messageValue, false);
+            message.value = '';
+        });
+
+        ws.onmessage = function(event) {
+            var data = JSON.parse(event.data);
+            addMessage(data.message, true);
+        }
+    </script>
+</body>
+</html>

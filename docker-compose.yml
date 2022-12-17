@@ -6,6 +6,7 @@ services:
     command: php /app/index.php
     ports:
       - "9501:9501"
+      - "9502:9502"
     volumes:
       - .:/app
     networks:
