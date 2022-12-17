@@ -3,6 +3,17 @@
 use App\Utils\PropertyAccessor;
 use Doctrine\Common\Collections\ArrayCollection;
 
+if (!function_exists('env')) {
+    function env($name, $default = null)
+    {
+        try {
+            return $_ENV[$name];
+        } catch (\Throwable $e) {
+            return $default;
+        }
+    }
+}
+
 if (!function_exists('data_get')) {
     /**
      * Get object or array index using dot notation
