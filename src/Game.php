@@ -3,10 +3,8 @@
 namespace App;
 
 use App\Collections\MainChars;
-use App\Collections\Statuses;
+use App\Console\Actions;
 use App\Models\Char;
-use App\Models\Status;
-use App\Utils\ApplyStatus;
 use Doctrine\Common\Collections\ArrayCollection;
 
 class Game
@@ -18,15 +16,15 @@ class Game
      */
     public function run()
     {
+        // TODO: By default, "Vaan" is always on party, another chars will be added from REPL
         $mainChars = new ArrayCollection([MainChars::VAAN]);
-        $generatedMainChars = $mainChars->map(fn ($char) => (new Char())->make($char));
-    
-        $protectStatus = Statuses::protect();
-        $tmp = new Status($protectStatus[0], $protectStatus[1]);
-        $shellStatus = Statuses::shell();
-        $tmp2 = new Status($shellStatus[0], $shellStatus[1]);
+        $partyChars = $mainChars->map(fn ($char) => (new Char())->make($char));
 
-        ApplyStatus::make($generatedMainChars[0], [$tmp, $tmp2]);
-        dd('Running!', ['main_chars' => $generatedMainChars->toArray()]);
+        // TODO: This will be called from REPL
+        (new Actions())->addStatus($partyChars->toArray(), 'Vaan', 'Protect');
+        (new Actions())->addStatus($partyChars->toArray(), 'Vaan', 'Shell');
+
+        // TODO: All output will be shown on REPL
+        dd('Running!', ['main_chars' => $partyChars->toArray()]);
     }
 }
