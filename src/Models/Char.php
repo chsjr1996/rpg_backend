@@ -2,29 +2,28 @@
 
 namespace App\Models;
 
-use App\Enums\CharDataEnum;
-use stdClass;
+use App\Models\CharPartials\CharAttributes;
+use App\Models\CharPartials\CharResistences;
+use App\Models\CharPartials\CharXp;
 
+/**
+ * @todo create ID scheme
+ */
 class Char
 {
     public string $name;
-    public object $xp; 
-    public int $level;
-    public int $lp;
-    public object $attributes;
-    public object $resistences;
-    public object $health;
-    public object $mp;
-    public array $equipedItems;
-    public array $status;
+    public CharXp $xp; 
+    public CharAttributes $attributes;
+    public CharResistences $resistences;
+    public array $equipedItems = [];
+    public array $status = [];
 
-    public function make(array $data): self
+    public function make(string $name): self
     {
-        $this->name = $data[CharDataEnum::Name->value];
-        $attributes = new stdClass();
-        $attributes->physicalDefense = 0;
-        $attributes->magickDefense = 0;
-        $this->attributes = $attributes;
+        $this->name = $name;
+        $this->xp = new CharXp();
+        $this->attributes = new CharAttributes();
+        $this->resistences = new CharResistences();
 
         return $this;
     }

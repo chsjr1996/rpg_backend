@@ -3,10 +3,11 @@
 This repository contains a RPG backend engine inspired/based on Final Fantasy XII. 
 
 ## TODO
-- [ ] Game loop (Maybe Swoole?)
 - [ ] Gambits system
-- [ ] Battle system (attack, level up, etc...)
-- [ ] Add some REPL (Maybe [PhySH](https://psysh.org/))
+- [ ] Battle system (RPG 'calculator' engine)
+- [ ] Add Socket channel
+- [ ] Add 'persistence layer' (RedBean or Doctrine ORM)
+- [ ] Create a frontend application engine (gameloop/actions)
 and more...
 
 ### Under development

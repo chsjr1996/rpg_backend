@@ -23,7 +23,7 @@ class Actions
      */
     public function addStatus(array $chars, string $targetChar, string $targetStatus): void
     {
-        $selectedStatus = (new ArrayCollection([Statuses::protect(), Statuses::shell()]))->findFirst(fn ($k, $v) => $v[StatusesDataEnum::NAME->value] === $targetStatus);
+        $selectedStatus = (new ArrayCollection(Statuses::getAll()))->findFirst(fn ($k, $v) => $v[StatusesDataEnum::NAME->value] === $targetStatus);
         $affectedChar = (new ArrayCollection($chars))->findFirst(fn ($k, $v) => $v->name === $targetChar);
 
         if (is_null($selectedStatus) || is_null($affectedChar)) {

@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Collections\MainChars;
+use App\Collections\Statuses;
 use App\Console\Actions;
 use App\Models\Char;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -12,19 +13,18 @@ class Game
     /**
      * Run the game
      * 
-     * @todo loop game here?
+     * @todo All game will be an API/socket (Swoole)
+     * @todo The game loop will be controled by the frontend application
      */
     public function run()
     {
-        // TODO: By default, "Vaan" is always on party, another chars will be added from REPL
-        $mainChars = new ArrayCollection([MainChars::VAAN]);
-        $partyChars = $mainChars->map(fn ($char) => (new Char())->make($char));
+        $mainChars = new ArrayCollection([MainChars::SOLRAC]);
+        $partyChars = $mainChars->map(fn ($char) => (new Char())->make($char))->toArray();
 
-        // TODO: This will be called from REPL
-        (new Actions())->addStatus($partyChars->toArray(), 'Vaan', 'Protect');
-        (new Actions())->addStatus($partyChars->toArray(), 'Vaan', 'Shell');
+        (new Actions())->addStatus($partyChars, MainChars::SOLRAC, Statuses::PROTECT);
+        (new Actions())->addStatus($partyChars, MainChars::SOLRAC, Statuses::SHELL);
+        (new Actions())->addStatus($partyChars, MainChars::SOLRAC, Statuses::FAITH);
 
-        // TODO: All output will be shown on REPL
-        dd('Running!', ['main_chars' => $partyChars->toArray()]);
+        dd('Running!', ['main_chars' => $partyChars]);
     }
 }
