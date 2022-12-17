@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\CharPartials;
+namespace App\Models\Partials;
 
 class CharXp
 {

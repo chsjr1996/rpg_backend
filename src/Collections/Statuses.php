@@ -2,6 +2,8 @@
 
 namespace App\Collections;
 
+use App\Models\Partials\StatusEffect;
+use App\Models\Status;
 use stdClass;
 
 /**
@@ -13,34 +15,48 @@ class Statuses
     public const SHELL = 'Shell';
     public const FAITH = 'Faith';
 
-    public static function protect(): array
+    public static function protect(): Status
     {
-        return [self::PROTECT, [self::makeEffects(true, 'defense', 10)]];
+        $status = new Status();
+        $status->name = self::PROTECT;
+        $status->effects = [self::makeEffects(true, 'defense', 10)];
+
+        return $status;
     }
 
-    public static function shell(): array
+    public static function shell(): Status
     {
-        return [self::SHELL, [self::makeEffects(true, 'magickResist', 5)]];
+        $status = new Status();
+        $status->name = self::SHELL;
+        $status->effects = [self::makeEffects(true, 'magickResist', 5)];
+
+        return $status;
     }
 
-    public static function faith(): array
+    public static function faith(): Status
     {
-        return [self::FAITH, [self::makeEffects(true, 'magickPower', 15)]];
+        $status = new Status();
+        $status->name = self::FAITH;
+        $status->effects = [self::makeEffects(true, 'magickPower', 15)];
+        
+        return $status;
     }
 
+    /**
+     * @return Status[]
+     */
     public static function getAll(): array
     {
         return [self::protect(), self::shell(), self::faith()];
     }
 
-    private static function makeEffects(bool $increase, string $target, int $amount): object
+    private static function makeEffects(bool $increase, string $targetAttribute, int $amount): object
     {
-        // TODO: Can be a DTO?
-        $effectObj = new stdClass();
-        $effectObj->increase = $increase;
-        $effectObj->target = $target;
-        $effectObj->amount = $amount;
+        $statusEffect = new StatusEffect();
+        $statusEffect->increase = $increase;
+        $statusEffect->targetAttribute = $targetAttribute;
+        $statusEffect->amount = $amount;
 
-        return $effectObj;
+        return $statusEffect;
     }
 }

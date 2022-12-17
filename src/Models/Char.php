@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use App\Models\CharPartials\CharAttributes;
-use App\Models\CharPartials\CharResistences;
-use App\Models\CharPartials\CharXp;
+use App\Models\Partials\CharAttributes;
+use App\Models\Partials\CharResistences;
+use App\Models\Partials\CharXp;
 
 /**
  * @todo create ID scheme
@@ -16,7 +16,7 @@ class Char
     public CharAttributes $attributes;
     public CharResistences $resistences;
     public array $equipedItems = [];
-    public array $status = [];
+    public array $statuses = [];
 
     public function make(string $name): self
     {

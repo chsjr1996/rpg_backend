@@ -3,6 +3,7 @@
 namespace App\Utils;
 
 use App\Models\Char;
+use App\Models\Partials\StatusEffect;
 use App\Models\Status;
 
 class ApplyStatus
@@ -17,17 +18,18 @@ class ApplyStatus
         $propertyAcessor = new PropertyAcessor();
 
         foreach ($statuses as $status) {
+            /** @var StatusEffect $effect */
             foreach ($status->effects as $effect) {
                 if ($effect->increase) {
                     $effectAmount = $propertyAcessor->get($effect, 'amount', 0);
-                    $effectTarget = $propertyAcessor->get($effect, 'target');
+                    $effectTarget = $propertyAcessor->get($effect, 'targetAttribute');
                     $currentAttribute = $propertyAcessor->get($char, "attributes.{$effectTarget}", 0);
                     $newAttribute = $currentAttribute + $effectAmount;
                     $propertyAcessor->set($char, "attributes.{$effectTarget}", $newAttribute);
                 }
             }
 
-            $char->status[] = $status->name;
+            $char->statuses[] = $status->name;
         }
     }
 }
