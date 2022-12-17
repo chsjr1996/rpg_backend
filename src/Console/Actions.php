@@ -3,9 +3,7 @@
 namespace App\Console;
 
 use App\Collections\Statuses;
-use App\Models\Status;
-use App\Utils\ApplyStatus;
-use Doctrine\Common\Collections\ArrayCollection;
+use App\Services\ApplyStatusService;
 
 class Actions
 {
@@ -22,13 +20,13 @@ class Actions
      */
     public function addStatus(array $chars, string $targetChar, string $targetStatus): void
     {
-        $selectedStatus = (new ArrayCollection(Statuses::getAll()))->findFirst(fn ($k, $v) => $v->name === $targetStatus);
-        $affectedChar = (new ArrayCollection($chars))->findFirst(fn ($k, $v) => $v->name === $targetChar);
+        $selectedStatus = collection(Statuses::getAll())->findFirst(fn ($k, $v) => $v->name === $targetStatus);
+        $affectedChar = collection($chars)->findFirst(fn ($k, $v) => $v->name === $targetChar);
 
         if (is_null($selectedStatus) || is_null($affectedChar)) {
             return;
         }
 
-        ApplyStatus::make($affectedChar, [$selectedStatus]);
+        ApplyStatusService::make($affectedChar, [$selectedStatus]);
     }
 }

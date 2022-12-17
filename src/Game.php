@@ -6,7 +6,6 @@ use App\Collections\MainChars;
 use App\Collections\Statuses;
 use App\Console\Actions;
 use App\Models\Char;
-use Doctrine\Common\Collections\ArrayCollection;
 
 class Game
 {
@@ -18,7 +17,7 @@ class Game
      */
     public function run()
     {
-        $mainChars = new ArrayCollection([MainChars::SOLRAC]);
+        $mainChars = collection([MainChars::SOLRAC]);
         $partyChars = $mainChars->map(fn ($char) => (new Char())->make($char))->toArray();
 
         (new Actions())->addStatus($partyChars, MainChars::SOLRAC, Statuses::PROTECT);

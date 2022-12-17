@@ -5,7 +5,7 @@ namespace App\Utils;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Throwable;
 
-class PropertyAcessor
+class PropertyAccessor
 {
     private $builder;
 

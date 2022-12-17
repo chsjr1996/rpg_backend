@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Utils;
+namespace App\Services;
 
 use App\Models\Char;
 use App\Models\Partials\StatusEffect;
 use App\Models\Status;
 
-class ApplyStatus
+class ApplyStatusService
 {
     /**
      * @param Char $char
@@ -15,17 +15,15 @@ class ApplyStatus
      */
     public static function make(Char $char, array $statuses): void
     {
-        $propertyAcessor = new PropertyAcessor();
-
         foreach ($statuses as $status) {
             /** @var StatusEffect $effect */
             foreach ($status->effects as $effect) {
                 if ($effect->increase) {
-                    $effectAmount = $propertyAcessor->get($effect, 'amount', 0);
-                    $effectTarget = $propertyAcessor->get($effect, 'targetAttribute');
-                    $currentAttribute = $propertyAcessor->get($char, "attributes.{$effectTarget}", 0);
+                    $effectAmount = data_get($effect, 'amount', 0);
+                    $effectTarget = data_get($effect, 'targetAttribute');
+                    $currentAttribute = data_get($char, "attributes.{$effectTarget}", 0);
                     $newAttribute = $currentAttribute + $effectAmount;
-                    $propertyAcessor->set($char, "attributes.{$effectTarget}", $newAttribute);
+                    data_set($char, "attributes.{$effectTarget}", $newAttribute);
                 }
             }
 
