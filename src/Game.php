@@ -20,9 +20,9 @@ class Game
         $mainChars = collection([MainChars::SOLRAC]);
         $partyChars = $mainChars->map(fn ($char) => (new Char())->make($char))->toArray();
 
-        (new Actions())->addStatus($partyChars, MainChars::SOLRAC, Statuses::PROTECT);
-        (new Actions())->addStatus($partyChars, MainChars::SOLRAC, Statuses::SHELL);
-        (new Actions())->addStatus($partyChars, MainChars::SOLRAC, Statuses::FAITH);
+        Actions::addStatus($partyChars, MainChars::SOLRAC, Statuses::PROTECT);
+        Actions::addStatus($partyChars, MainChars::SOLRAC, Statuses::SHELL);
+        Actions::addStatus($partyChars, MainChars::SOLRAC, Statuses::FAITH);
 
         dd('Running!', ['main_chars' => $partyChars]);
     }

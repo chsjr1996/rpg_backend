@@ -18,7 +18,7 @@ class Actions
      * @param string $targetStatus The "ID" of the status... for now the name is used, but later it will be replaced by "ID"
      * @return void
      */
-    public function addStatus(array $chars, string $targetChar, string $targetStatus): void
+    public static function addStatus(array $chars, string $targetChar, string $targetStatus): void
     {
         $selectedStatus = collection(Statuses::getAll())->findFirst(fn ($k, $v) => $v->name === $targetStatus);
         $affectedChar = collection($chars)->findFirst(fn ($k, $v) => $v->name === $targetChar);
