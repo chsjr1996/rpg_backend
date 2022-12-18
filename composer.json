@@ -8,7 +8,8 @@
             "helpers.php"
         ],
         "psr-4": {
-            "RPG\\": "src/"
+            "RPG\\": "src/",
+            "Web\\": "web/"
         }
     },
     "require": {

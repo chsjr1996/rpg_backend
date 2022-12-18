@@ -1,22 +1,21 @@
 <?php
 
-use App\SwooleHttp;
-use App\SwooleSocket;
-use App\Utils\DotenvLoader;
+use Web\Servers\SwooleHttpServer;
+use Web\Servers\SwooleSocketServer;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
 try {
     /**
-     * Global utils
+     * Application bootstrap
      */
-    DotenvLoader::load();
-    
+    load_envs();
+
     /**
      * Create a new game Http/Socket servers (if enabled, not both at same time)
      */
-    SwooleSocket::start();
-    SwooleHttp::start();
+    (new SwooleSocketServer)->start();
+    (new SwooleHttpServer)->start();
 } catch (\Throwable $e) {
     echo sprintf("Error on startup app: %s", $e->getMessage());
 }

@@ -1,7 +1,18 @@
 <?php
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Dotenv\Dotenv;
 use Symfony\Component\PropertyAccess\PropertyAccess;
+
+if (!function_exists('load_envs')) {
+    /**
+     * Load .env file
+     */
+    function load_envs()
+    {
+        (Dotenv::createImmutable(__DIR__))->load();
+    }
+}
 
 if (!function_exists('env')) {
     function env($name, $default = null)
