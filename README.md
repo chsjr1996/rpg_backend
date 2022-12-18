@@ -4,7 +4,7 @@ This repository contains a RPG backend engine inspired/based on Final Fantasy XI
 
 ## TODO
 - ⚙️ Add Socket channel
-- ⚙️ Restructure project architecture (DDD)
+- ⚙️ Restructure project architecture (DDD)*
 - ⚙️ Add Service Container (PHP DI)
 - `pending` Gambits system
 - `pending` Battle system (RPG 'calculator' engine)
@@ -12,6 +12,8 @@ This repository contains a RPG backend engine inspired/based on Final Fantasy XI
 - `pending` Create a frontend application engine (gameloop/actions)
 
 and more...
+
+> * Need to be more decoupled?
 
 ## Features
 
