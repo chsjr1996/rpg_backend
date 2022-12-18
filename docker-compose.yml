@@ -3,7 +3,7 @@ services:
   app:
     build: .
     container_name: rpg_backend_app
-    command: php /app/index.php
+    command: php /app/web/Server.php
     ports:
       - "9501:9501"
       - "9502:9502"

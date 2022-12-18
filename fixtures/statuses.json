@@ -1,0 +1,29 @@
+{
+  "protect": {
+    "effects": [
+      {
+        "increase": true,
+        "targetAttribute": "defense",
+        "amount": 10
+      }
+    ]
+  },
+  "shell": {
+    "effects": [
+      {
+        "increase": true,
+        "targetAttribute": "magickResist",
+        "amount": 5
+      }
+    ]
+  },
+  "faith": {
+    "effects": [
+      {
+        "increase": true,
+        "targetAttribute": "magickPower",
+        "amount": 15
+      }
+    ]
+  }
+}
