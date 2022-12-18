@@ -1,25 +1,19 @@
 <?php
 
-namespace App;
+namespace Web\Servers;
 
 use Swoole\WebSocket\Server;
 
-class SwooleSocket
+class SwooleSocketServer extends BaseSwooleServer
 {
-    public static function start(): void
+    public function start(): void
     {
-        $socketEnabled = (bool) env('SWOOLE_SOCKET_ENABLED', false);
-        $httpEnabled = (bool) env('SWOOLE_HTTP_ENABLED', false);
-
-        if (!$socketEnabled) {
+        if (!$this->isSocketEnabled()) {
             echo "Swoole Socket is not enabled, aborting...";
             return;
-        } else if ($socketEnabled && $httpEnabled) {
-            echo "Swoole Http is enabled, aborting the socket...";
-            return;
-        }
+        } 
 
-        $socketServer = new Server(env('SWOOLE_SOCKET_HOST', '0.0.0.0'), env('SWOOLE_SOCKET_PORT', 9502));
+        $socketServer = new Server($this->getSocketHost(), $this->getSocketPort());
 
         $socketServer->on('start', function ($socketServer) {
             echo "Swoole Socket server is started at ws://{$socketServer->host}:{$socketServer->port}\n";

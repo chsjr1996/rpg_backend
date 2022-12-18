@@ -1,7 +1,18 @@
 <?php
 
-use App\Utils\PropertyAccessor;
 use Doctrine\Common\Collections\ArrayCollection;
+use Dotenv\Dotenv;
+use Symfony\Component\PropertyAccess\PropertyAccess;
+
+if (!function_exists('load_envs')) {
+    /**
+     * Load .env file
+     */
+    function load_envs()
+    {
+        (Dotenv::createImmutable(__DIR__))->load();
+    }
+}
 
 if (!function_exists('env')) {
     function env($name, $default = null)
@@ -27,9 +38,13 @@ if (!function_exists('data_get')) {
      */
     function data_get($objectOrArray, string $path, $default = null)
     {
-        $propertyAcessor = new PropertyAccessor();
+        try {
+            $propertyAcessor = PropertyAccess::createPropertyAccessor();
 
-        return $propertyAcessor->get($objectOrArray, $path, $default);
+            return $propertyAcessor->getValue($objectOrArray, $path);
+        } catch (\Throwable $e) {
+            return $default;
+        }
     }
 }
 
@@ -43,13 +58,18 @@ if (!function_exists('data_set')) {
      * @param object|array $objectOrArray
      * @param string $path
      * @param mixed $default
-     * @return mixed
+     * @return bool False if value cannot be set
      */
     function data_set($objectOrArray, string $path, $value)
     {
-        $propertyAcessor = new PropertyAccessor();
+        try {
+            $propertyAcessor = PropertyAccess::createPropertyAccessor();
+            $propertyAcessor->setValue($objectOrArray, $path, $value);
 
-        return $propertyAcessor->set($objectOrArray, $path, $value);
+            return true;
+        } catch (\Throwable $th) {
+            return false;
+        }
     }
 }
 
@@ -64,5 +84,27 @@ if (!function_exists('collection')) {
     function collection(array $arr)
     {
         return new ArrayCollection($arr);
+    }
+}
+
+if (!function_exists('get_fixture')) {
+    /**
+     * Get fixture file data content
+     * 
+     * 
+     */
+    function get_fixture(string $fixtureName, $toArray = false)
+    {
+        try {
+            $data = json_decode(file_get_contents(__DIR__ . "/fixtures/{$fixtureName}"));
+
+            if ($toArray) {
+                return (array) $data;
+            }
+
+            return $data;
+        } catch (\Throwable $e) {
+            return false;
+        }
     }
 }

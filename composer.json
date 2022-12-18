@@ -5,16 +5,18 @@
     "license": "MIT",
     "autoload": {
         "files": [
-            "src/helpers.php"
+            "helpers.php"
         ],
         "psr-4": {
-            "App\\": "src/"
+            "RPG\\": "src/",
+            "Web\\": "web/"
         }
     },
     "require": {
         "doctrine/collections": "^2.1",
         "symfony/property-access": "^6.2",
-        "vlucas/phpdotenv": "^5.5"
+        "vlucas/phpdotenv": "^5.5",
+        "php-di/php-di": "^6.4"
     },
     "require-dev": {
         "symfony/var-dumper": "^6.2",
