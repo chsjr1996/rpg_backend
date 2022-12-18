@@ -3,9 +3,11 @@
 use Web\Servers\SwooleHttpServer;
 use Web\Servers\SwooleSocketServer;
 
-require_once __DIR__ . '/vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
 try {
+    echo "Starting server...", PHP_EOL;
+    echo "Loading envs", PHP_EOL;
     /**
      * Application bootstrap
      */
