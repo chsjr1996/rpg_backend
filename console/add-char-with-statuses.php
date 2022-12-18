@@ -7,8 +7,8 @@
  * @see fixtures/statuses.json with available statuses
  */
 
-use RPG\Domain\Char\Char;
 use RPG\Application\Status\AddStatusAction;
+use RPG\Domain\Char\Char;
 use RPG\Domain\Char\CharAttributes;
 use RPG\Domain\Char\CharResistences;
 use RPG\Domain\Char\CharXp;
@@ -24,7 +24,7 @@ $gameChars = get_fixture('chars.json', true);
 $gameStatuses = get_fixture('statuses.json', true);
 
 if (!$selectedChar = collection($gameChars)->findFirst(fn ($k, $v) => $k === $charName)) {
-    echo "Char not found...", PHP_EOL;
+    echo "Char not found... use 'list-chars.php' to retrieve current chars...", PHP_EOL;
     exit(1);
 }
 
