@@ -1,35 +1,35 @@
 {
   "solrac": {
     "xp": {
-      "current": 0,
-      "next": 0,
-      "level": 0
+      "current": 1,
+      "next": 100,
+      "level": 1
     },
     "attributes": {
-      "attackPower": 0,
-      "defense": 0,
-      "magickResist": 0,
-      "evade": 0,
-      "magickEvade": 0,
-      "strength": 0,
-      "magickPower": 0,
-      "vitality": 0,
-      "speed": 0,
-      "currentHealthPoints": 0,
-      "maxHealthPoints": 0,
-      "currentMagickPoints": 0,
-      "maxMagickPoints": 0
+      "attackPower": 5,
+      "defense": 10,
+      "magickResist": 2,
+      "evade": 3,
+      "magickEvade": 2,
+      "strength": 10,
+      "magickPower": 5,
+      "vitality": 5,
+      "speed": 4,
+      "currentHealthPoints": 500,
+      "maxHealthPoints": 500,
+      "currentMagickPoints": 100,
+      "maxMagickPoints": 100
     },
     "resistences": {
-      "water": 0,
-      "fire": 0,
-      "ice": 0,
-      "thunder": 0,
-      "earth": 0,
-      "air": 0,
-      "poison": 0,
-      "dark": 0,
-      "holy": 0
+      "water": 2,
+      "fire": 3,
+      "ice": 1,
+      "thunder": 1,
+      "earth": 2,
+      "air": 1,
+      "poison": 1,
+      "dark": 1,
+      "holy": 1
     }
   }
 }

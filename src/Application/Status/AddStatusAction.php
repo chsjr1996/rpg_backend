@@ -17,15 +17,14 @@ class AddStatusAction
         foreach ($statuses as $status) {
             /** @var StatusEffect $effect */
             foreach ($status->effects() as $effect) {
-                if ($effect->increase()) {
-                    $effectAmount = $effect->amount();
-                    $effectTarget = $effect->targetAttribute();
+                $effectAmount = $effect->amount();
+                $effectTarget = $effect->targetAttribute();
+                $currentAttribute = $char->charAttributes()->$effectTarget();
+                $newAttribute = $effect->increase()
+                    ? $currentAttribute + $effectAmount
+                    : $currentAttribute - $effectAmount;
 
-                    $currentAttribute = $char->charAttributes()->$effectTarget();
-                    $newAttribute = $currentAttribute + $effectAmount;
-
-                    $char->charAttributes()->$effectTarget($newAttribute);
-                }
+                $char->charAttributes()->$effectTarget($newAttribute);
             }
 
             $char->statuses($status->name());

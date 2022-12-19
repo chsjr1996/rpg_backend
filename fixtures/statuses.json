@@ -25,5 +25,37 @@
         "amount": 15
       }
     ]
+  },
+  "haste": {
+    "effects": [
+      {
+        "increase": true,
+        "targetAttribute": "speed",
+        "amount": 10
+      }
+    ]
+  },
+  "slow": {
+    "effects": [
+      {
+        "increase": false,
+        "targetAttribute": "speed",
+        "amount": 4
+      }
+    ]
+  },
+  "fear": {
+    "effects": [
+      {
+        "increase": false,
+        "targetAttribute": "attackPower",
+        "amount": 3
+      },
+      {
+        "increase": false,
+        "targetAttribute": "defense",
+        "amount": 3
+      }
+    ]
   }
 }
