@@ -12,6 +12,11 @@
             "Web\\": "web/"
         }
     },
+    "scripts": {
+        "listChars": ["php console/list-chars.php"],
+        "listStatuses": ["php console/list-statuses.php"],
+        "addCharWithStatuses": ["php console/add-char-with-statuses.php"]
+    },
     "require": {
         "doctrine/collections": "^2.1",
         "symfony/property-access": "^6.2",
