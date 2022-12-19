@@ -4,10 +4,7 @@ namespace RPG\Domain\Status;
 
 class Status
 {
-    private string $name = '';
-    private array $effects = [];
-
-    public function __construct(string $name, array $effects)
+    public function __construct(private string $name, private array $effects)
     {
         $this->name = $name;
         $this->effects = $effects;

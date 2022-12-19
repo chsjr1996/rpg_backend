@@ -4,12 +4,11 @@ namespace RPG\Domain\Status;
 
 class StatusEffect
 {
-    private bool $increase;
-    private string $targetAttribute;
-    private int $amount;
-
-    public function __construct(bool $increase, string $targetAttribute, int $amount)
-    {
+    public function __construct(
+        private bool $increase,
+        private string $targetAttribute,
+        private int $amount
+    ) {
         $this->increase = $increase;
         $this->targetAttribute = $targetAttribute;
         $this->amount = $amount;

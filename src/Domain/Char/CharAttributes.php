@@ -4,34 +4,20 @@ namespace RPG\Domain\Char;
 
 class CharAttributes
 {
-    private int $attackPower = 0;
-    private int $defense = 0;
-    private int $magickResist = 0;
-    private int $evade = 0;
-    private int $magickEvade = 0;
-    private int $strength = 0;
-    private int $magickPower = 0;
-    private int $vitality = 0;
-    private int $speed = 0;
-    private int $currentHealthPoints = 0;
-    private int $maxHealthPoints = 0;
-    private int $currentMagickPoints = 0;
-    private int $maxMagickPoints = 0;
-
     public function __construct(
-        $attackPower,
-        $defense,
-        $magickResist,
-        $evade,
-        $magickEvade,
-        $strength,
-        $magickPower,
-        $vitality,
-        $speed,
-        $currentHealthPoints,
-        $maxHealthPoints,
-        $currentMagickPoints,
-        $maxMagickPoints,
+        private $attackPower,
+        private $defense,
+        private $magickResist,
+        private $evade,
+        private $magickEvade,
+        private $strength,
+        private $magickPower,
+        private $vitality,
+        private $speed,
+        private $currentHealthPoints,
+        private $maxHealthPoints,
+        private $currentMagickPoints,
+        private $maxMagickPoints,
     ) {
         $this->attackPower = $attackPower;
         $this->defense = $defense;

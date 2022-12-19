@@ -4,26 +4,16 @@ namespace RPG\Domain\Char;
 
 class CharResistences
 {
-    private int $water = 0;
-    private int $fire = 0;
-    private int $ice = 0;
-    private int $thunder = 0;
-    private int $earth = 0;
-    private int $air = 0;
-    private int $poison = 0;
-    private int $dark = 0;
-    private int $holy = 0;
-
     public function __construct(
-        int $water,
-        int $fire,
-        int $ice,
-        int $thunder,
-        int $earth,
-        int $air,
-        int $poison,
-        int $dark,
-        int $holy
+        private int $water,
+        private int $fire,
+        private int $ice,
+        private int $thunder,
+        private int $earth,
+        private int $air,
+        private int $poison,
+        private int $dark,
+        private int $holy
     ) {
         $this->water = $water;
         $this->fire = $fire;

@@ -8,22 +8,14 @@ use RPG\Domain\Char\CharXp;
 
 class Char
 {
-    private string $id;
-    private string $name;
-    private CharXp $charXp;
-    private CharAttributes $charAttributes;
-    private CharResistences $charResistences;
-    private array $equipedItems = [];
-    private array $statuses = [];
-
     public function __construct(
-        string $id,
-        string $name,
-        CharXp $charXp,
-        CharAttributes $charAttributes,
-        CharResistences $charResistences,
-        array $equipedItems,
-        array $statuses
+        private string $id,
+        private string $name,
+        private CharXp $charXp,
+        private CharAttributes $charAttributes,
+        private CharResistences $charResistences,
+        private array $equipedItems = [],
+        private array $statuses
     ) {
         $this->id = $id;
         $this->name = $name;

@@ -4,12 +4,11 @@ namespace RPG\Domain\Char;
 
 class CharXp
 {
-    private int $current = 0;
-    private int $next = 0;
-    private int $level = 0;
-
-    public function __construct(int $current, int $next, int $level)
-    {
+    public function __construct(
+        private int $current,
+        private int $next,
+        private int $level
+    ) {
         $this->current = $current;
         $this->next = $next;
         $this->level = $level;
