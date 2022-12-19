@@ -52,4 +52,5 @@ foreach ($statusesNames as $statusName) {
 $useCase = new AddStatusAction();
 $useCase->execute($char, $selectedStatuses);
 
-dd($char);
+dump($char);
+exit(0);
