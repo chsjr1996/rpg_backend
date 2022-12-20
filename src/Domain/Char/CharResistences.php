@@ -85,4 +85,19 @@ class CharResistences
     {
         return $this->holy;
     }
+
+    public function toArray()
+    {
+        return [
+            'water' => $this->water,
+            'fire' => $this->fire,
+            'ice' => $this->ice,
+            'thunder' => $this->thunder,
+            'earth' => $this->earth,
+            'air' => $this->air,
+            'poison' => $this->poison,
+            'dark' => $this->dark,
+            'holy' => $this->holy,
+        ];
+    }
 }

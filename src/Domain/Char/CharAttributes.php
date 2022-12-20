@@ -169,4 +169,23 @@ class CharAttributes
 
         return $this->maxMagickPoints;
     }
+
+    public function toArray()
+    {
+        return [
+            'attackPower' => $this->attackPower,
+            'defense' => $this->defense,
+            'magickResist' => $this->magickResist,
+            'evade' => $this->evade,
+            'magickEvade' => $this->magickEvade,
+            'strength' => $this->strength,
+            'magickPower' => $this->magickPower,
+            'vitality' => $this->vitality,
+            'speed' => $this->speed,
+            'currentHealthPoints' => $this->currentHealthPoints,
+            'maxHealthPoints' => $this->maxHealthPoints,
+            'currentMagickPoints' => $this->currentMagickPoints,
+            'maxMagickPoints' => $this->maxMagickPoints,
+        ];
+    }
 }

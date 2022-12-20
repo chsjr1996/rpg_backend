@@ -15,7 +15,7 @@ class Char
         private CharAttributes $charAttributes,
         private CharResistences $charResistences,
         private array $equipedItems = [],
-        private array $statuses
+        private array $statuses = []
     ) {
         $this->id = $id;
         $this->name = $name;
@@ -76,5 +76,18 @@ class Char
         }
 
         return $this->statuses;
+    }
+
+    public function toArray()
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'xp' => $this->charXp->toArray(),
+            'attributes' => $this->charAttributes->toArray(),
+            'resistences' => $this->charResistences->toArray(),
+            'equiped_items' => $this->equipedItems,
+            'statuses' => $this->statuses,
+        ];
     }
 }

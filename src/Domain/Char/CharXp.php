@@ -33,4 +33,13 @@ class CharXp
     {
         return $this->level;
     }
+    
+    public function toArray()
+    {
+        return [
+            'current' => $this->current,
+            'next' => $this->next,
+            'level' => $this->level,
+        ];
+    }
 }
