@@ -18,7 +18,7 @@ use RPG\Domain\Status\StatusEffect;
 require __DIR__ . '/../vendor/autoload.php';
 
 $charName = data_get($argv, '[1]');
-$statusesNames = explode(',', data_get($argv, '[2]', []));
+$statusesNames = explode(',', data_get($argv, '[2]', ''));
 
 $gameChars = get_fixture('chars.json', true);
 $gameStatuses = get_fixture('statuses.json', true);
