@@ -2,17 +2,17 @@
 
 namespace Web\Routes;
 
-use Web\ServerHandlers\Router;
+use Web\Services\Handlers\HttpRequestHandler as Route;
 
 class HttpRoutes
 {
     public static function start()
     {
-        Router::get('/server/reload', 'ServerController@reload');
-        Router::get('/server/status', 'ServerController@status');
+        Route::get('/server/reload', 'ServerController@reload');
+        Route::get('/server/status', 'ServerController@status');
 
-        Router::get('/game/chars', 'GameController@chars');
-        Router::get('/game/statuses', 'GameController@statuses');
-        Router::get('/game/add-char-status', 'GameController@addCharStatus');
+        Route::get('/game/chars', 'GameController@chars');
+        Route::get('/game/statuses', 'GameController@statuses');
+        Route::get('/game/add-char-status', 'GameController@addCharStatus');
     }
 }

@@ -1,12 +1,12 @@
 <?php
 
-namespace Web\ServerHandlers;
+namespace Web\Services\Handlers;
 
+use DI\Container;
 use Swoole\Http\Request;
-use Swoole\Http\Response;
-use Swoole\Http\Server;
+use Web\Controllers\Http\NotFoundController;
 
-class Router
+class HttpRequestHandler
 {
     private const ROUTE_URI = 0;
     private const ROUTE_HANDLER = 1;
@@ -19,9 +19,12 @@ class Router
         self::$routes[] = [$uri, $handler, 'GET'];
     }
 
-    public static function handle(Request $request, Response $response, Server $server)
+    public static function init(Container $container)
     {
         try {
+            /** @var Request */
+            $request = $container->get(Request::class);
+
             $found = false;
             $requestUri = data_get($request->server, '[request_uri]');
 
@@ -33,17 +36,15 @@ class Router
                     $found = true;
                     [$handlerController, $handlerMethod] = explode('@', $handler);
                     $handlerControllerWithNamespace = self::CONTROLLERS_NAMESPACE . $handlerController;
-                    (new $handlerControllerWithNamespace())->$handlerMethod($request, $response, $server);
+                    (new $handlerControllerWithNamespace($container))->$handlerMethod();
                 }
             }
 
             if (!$found) {
-                $response->header('Content-Type', 'application/json');
-                $response->status(404);
-                $response->end();
+                (new NotFoundController($container))->index();
             }
         } catch (\Throwable $e) {
-            echo sprintf("Error on Router::handler --- %s", $e->getMessage());
+            echo sprintf("Error on HttpRequestHandler::init --- %s", $e->getMessage());
         }
     }
 

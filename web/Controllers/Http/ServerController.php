@@ -2,33 +2,31 @@
 
 namespace Web\Controllers\Http;
 
-use Swoole\Http\Request;
-use Swoole\Http\Response;
-use Swoole\Http\Server;
-use Web\ServerHandlers\Router;
+use Web\Services\Handlers\HttpRequestHandler as Route;
 
 class ServerController extends BaseContoller
 {
-    public function reload(Request $request, Response $response, Server $server)
+    public function reload()
     {
         if (!(bool) env('SWOOLE_HTTP_CAN_RELOAD', false)) {
-            $this->jsonResponse($response, ['message' => 'reload disabled...']);
+            $this->jsonResponse(['message' => 'reload disabled...']);
         }
 
-        if (!$server->reload()) {
-            $this->jsonResponse($response, ['message' => 'error on reload...'], 500);
+        if (!$this->server->reload()) {
+            $this->jsonResponse(['message' => 'error on reload...'], 500);
         }
 
         $html = file_get_contents($this->getViewPath('reload.html'));
-        $this->viewResponse($response, $html);
+        $this->htmlResponse($html);
     }
 
-    public function status(Request $request, Response $response, Server $server)
+    public function status()
     {
-        $this->jsonResponse($response, [
-            'server' => $request->server,
-            'routes' => Router::getCurrentRoutes(),
+        $this->jsonResponse([
+            'server' => $this->request->server,
             'can_restart' => (bool) env('SWOOLE_HTTP_CAN_RELOAD', false),
+            'routes' => Route::getCurrentRoutes(),
+            'container_names' => $this->container->getKnownEntryNames(),
         ]);
     }
 }
