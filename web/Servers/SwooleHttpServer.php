@@ -32,6 +32,8 @@ class SwooleHttpServer extends BaseSwooleServer
     private function handleRequest(Request $request, Response $response, Server $httpServer, ServiceContainer $container): void
     {
         $container->boot();
+
+        // FIX: Override below container instances by request is a problem. Differents users requests can be mixed...
         $container->set(Request::class, $request);
         $container->set(Response::class, $response);
         $container->set(Server::class, $httpServer);

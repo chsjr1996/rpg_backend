@@ -9,16 +9,27 @@ use RPG\Domain\Char\CharResistences;
 use RPG\Domain\Char\CharXp;
 use RPG\Domain\Status\Status;
 use RPG\Domain\Status\StatusEffect;
+use RPG\Infrastructure\Char\CharRepositoryPDO;
+use Swoole\Coroutine\Channel;
+use Web\Services\BaseService;
 
-class CharService
+use function Swoole\Coroutine\go;
+
+class CharService extends BaseService
 {
-    public function list()
+    public function list(Channel $channel): void
     {
-        try {
-            return [array_keys(get_fixture('chars.json', true)), null];
-        } catch (\Throwable $e) {
-            return [null, $e->getMessage()];
-        }
+        go(function () use ($channel) {
+            try {
+                $charRepository = new CharRepositoryPDO($this->getPDOConn());
+                $chars = $charRepository->list();
+
+                $channel->push([$chars, false]);
+            } catch (\Throwable $e) {
+                // TODO: Log this... (monolog?)
+                $channel->push([null, true]);
+            }
+        });
     }
 
     /**

@@ -2,24 +2,31 @@
 
 namespace Web\Controllers\Http;
 
+use Swoole\Coroutine\Channel;
 use Web\Services\Game\CharService;
 use Web\Services\Game\StatusService;
+use function Swoole\Coroutine\go;
 
 class GameController extends BaseContoller
 {
     public function chars()
     {
-        try {
-            [$data, $error] = $this->container->get(CharService::class)->list();
+        $CoChannel = new Channel(1);
 
-            if ($error) {
-                throw new \Exception($error);
+        go(function () use ($CoChannel) {
+            try {
+                $this->container->get(CharService::class)->list($CoChannel);
+                [$data, $error] = $CoChannel->pop();
+
+                if ($error) {
+                    throw new \Exception($error);
+                }
+
+                return $this->jsonResponse($data);
+            } catch (\Throwable $e) {
+                return $this->jsonResponse(['message' => $e->getMessage()], 500);
             }
-
-            $this->jsonResponse($data);
-        } catch (\Throwable $e) {
-            return $this->jsonResponse(['message' => $e->getMessage()], 500);
-        }
+        });
     }
 
     public function statuses()
