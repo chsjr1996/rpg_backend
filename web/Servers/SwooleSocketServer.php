@@ -9,7 +9,7 @@ class SwooleSocketServer extends BaseSwooleServer
     public function start(): void
     {
         if (!$this->isSocketEnabled()) {
-            echo "Swoole Socket is not enabled, aborting...", PHP_EOL;
+            console_out_warning('Swoole Socket is not enabled, aborting...');
             return;
         } 
 

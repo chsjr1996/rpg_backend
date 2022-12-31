@@ -2,6 +2,12 @@
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Dotenv\Dotenv;
+use Symfony\Component\Console\Helper\QuestionHelper;
+use Symfony\Component\Console\Helper\Table;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\ConsoleOutput;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Question\ChoiceQuestion;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
 if (!function_exists('load_envs')) {
@@ -106,5 +112,74 @@ if (!function_exists('get_fixture')) {
         } catch (\Throwable $e) {
             return false;
         }
+    }
+}
+
+if (!function_exists('console_out_normal')) {
+    function console_out_normal(string $text): void
+    {
+        $output = new ConsoleOutput();
+        $output->writeln($text);
+    }
+}
+
+if (!function_exists('console_out_error')) {
+    function console_out_error(string $text): void
+    {
+        $output = new ConsoleOutput();
+        $output->writeln(sprintf('<error>%s</error>', $text));
+    }
+}
+
+if (!function_exists('console_out_warning')) {
+    function console_out_warning(string $text): void
+    {
+        $output = new ConsoleOutput();
+        $output->writeln(sprintf('<comment>%s</comment>', $text));
+    }
+}
+
+if (!function_exists('console_out_success')) {
+    function console_out_success(string $text): void
+    {
+        $output = new ConsoleOutput();
+        $output->writeln(sprintf('<info>%s</info>', $text));
+    }
+}
+
+if (!function_exists('console_out_table')) {
+    function console_out_table(
+        OutputInterface $output,
+        array $headers,
+        array $rows,
+        ?string $headerTitle = null,
+        ?string $footerTitle = null
+    ): void {
+        $table = new Table($output);
+        $table
+            ->setHeaders($headers)
+            ->setRows($rows)
+            ->setHeaderTitle($headerTitle)
+            ->setFooterTitle($footerTitle);
+
+        $table->render();
+    }
+}
+
+if (!function_exists('console_in_question')) {
+    function console_in_question(
+        InputInterface $input,
+        OutputInterface $output,
+        string $questionText,
+        array $choices,
+        bool $multiselect = false,
+        int|string|null $default = null
+    ) {
+        $helper = new QuestionHelper();
+        $question = new ChoiceQuestion($questionText, $choices, $default);
+        $question->setErrorMessage('Invalid choice...');
+        $question->setMultiselect($multiselect);
+
+        return $helper->ask($input, $output, $question);
     }
 }

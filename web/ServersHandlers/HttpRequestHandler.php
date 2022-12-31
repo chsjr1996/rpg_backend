@@ -1,6 +1,6 @@
 <?php
 
-namespace Web\Services\Handlers;
+namespace Web\ServersHandlers;
 
 use DI\Container;
 use Swoole\Http\Request;
@@ -19,7 +19,7 @@ class HttpRequestHandler
         self::$routes[] = [$uri, $handler, 'GET'];
     }
 
-    public static function init(Container $container)
+    public static function onRequest(Container $container)
     {
         try {
             /** @var Request */
@@ -44,7 +44,7 @@ class HttpRequestHandler
                 (new NotFoundController($container))->index();
             }
         } catch (\Throwable $e) {
-            echo sprintf("Error on HttpRequestHandler::init --- %s", $e->getMessage());
+            console_out_error(sprintf("Error on HttpRequestHandler::init --- %s", $e->getMessage()));
         }
     }
 

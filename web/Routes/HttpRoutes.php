@@ -2,7 +2,7 @@
 
 namespace Web\Routes;
 
-use Web\Services\Handlers\HttpRequestHandler as Route;
+use Web\ServersHandlers\HttpRequestHandler as Route;
 
 class HttpRoutes
 {

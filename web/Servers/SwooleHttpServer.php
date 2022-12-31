@@ -5,15 +5,15 @@ namespace Web\Servers;
 use Swoole\Http\Server;
 use Swoole\Http\Request;
 use Swoole\Http\Response;
+use Web\ServersHandlers\HttpRequestHandler;
 use Web\ServiceContainer;
-use Web\Services\Handlers\HttpRequestHandler;
 
 class SwooleHttpServer extends BaseSwooleServer
 {
     public function start(): void
     {
         if (!$this->isHttpEnabled()) {
-            echo "Swoole Http is not enabled, aborting...", PHP_EOL;
+            console_out_warning('Swoole HTTP is not enabled, aborting...');
             return;
         }
 
@@ -26,7 +26,7 @@ class SwooleHttpServer extends BaseSwooleServer
 
     private function logStart(Server $httpServer): void
     {
-        echo "Swoole HTTP server is started at http://{$httpServer->host}:{$httpServer->port}", PHP_EOL;
+        console_out_success(sprintf('Swoole HTTP server is started at http://%s:%s', $httpServer->host, $httpServer->port));
     }
 
     private function handleRequest(Request $request, Response $response, Server $httpServer, ServiceContainer $container): void
@@ -36,6 +36,6 @@ class SwooleHttpServer extends BaseSwooleServer
         $container->set(Response::class, $response);
         $container->set(Server::class, $httpServer);
 
-        HttpRequestHandler::init($container->getContainer());
+        HttpRequestHandler::onRequest($container->getContainer());
     }
 }

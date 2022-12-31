@@ -2,7 +2,7 @@
 
 namespace Web\Controllers\Http;
 
-use Web\Services\Handlers\HttpRequestHandler as Route;
+use Web\ServersHandlers\HttpRequestHandler as Route;
 
 class ServerController extends BaseContoller
 {

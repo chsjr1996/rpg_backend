@@ -14,17 +14,23 @@ use RPG\Domain\Char\CharResistences;
 use RPG\Domain\Char\CharXp;
 use RPG\Domain\Status\Status;
 use RPG\Domain\Status\StatusEffect;
+use Symfony\Component\Console\Input\ArgvInput;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\ConsoleOutput;
 
 require __DIR__ . '/../vendor/autoload.php';
 
-$charName = data_get($argv, '[1]');
-$statusesNames = explode(',', data_get($argv, '[2]', ''));
+$input = new ArgvInput();
+$output = new ConsoleOutput();
 
 $gameChars = get_fixture('chars.json', true);
 $gameStatuses = get_fixture('statuses.json', true);
 
+$charName = console_in_question($input, $output, 'Choose a char', array_keys($gameChars));
+$statusesNames = console_in_question($input, $output, 'Choose statuses', array_keys($gameStatuses), true);
+
 if (!$selectedChar = collection($gameChars)->findFirst(fn ($k, $v) => $k === $charName)) {
-    echo "Char not found... use 'list-chars.php' to retrieve current chars...", PHP_EOL;
+    console_out_error('Char not found... use \'list-chars.php\' to retrieve current chars...');
     exit(1);
 }
 

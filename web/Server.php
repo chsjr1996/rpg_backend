@@ -7,8 +7,9 @@ use Web\Servers\SwooleSocketServer;
 require __DIR__ . '/../vendor/autoload.php';
 
 try {
-    echo "Starting server...", PHP_EOL;
-    echo "Loading envs", PHP_EOL;
+    console_out_success('Starting server...');
+    console_out_success('Loading envs');
+
     /**
      * Application bootstrap
      */
@@ -21,5 +22,5 @@ try {
     (new SwooleSocketServer)->start();
     (new SwooleHttpServer)->start();
 } catch (\Throwable $e) {
-    echo sprintf("Error on startup app: %s", $e->getMessage());
+    console_out_error(sprintf("Error on startup app: %s", $e->getMessage()));
 }
