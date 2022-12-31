@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rpg_db
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rpg_db
+  template:
+    metadata:
+      labels:
+        app: rpg_db
+    spec:
+      containers:
+        - name: rpg-db-container
+          image: mariadb:latest
+          imagePullPolicy: Never
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rpg_db_entrypoint
+  namespace: default
+spec:
+  type: NodePort
+  selector:
+    app: rpg_db
+  ports:
+  - port: 3306
+    targetPort: 3306
+    nodePort: 30006

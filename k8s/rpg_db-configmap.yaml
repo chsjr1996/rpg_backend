@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: rpg-db-configmap
+data:
+  MYSQL_PASSWORD_ROOT: admin
+  MYSQL_DATABASE: rpg_game

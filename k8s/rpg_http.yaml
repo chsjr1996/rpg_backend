@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rpg_http
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rpg_http
+  template:
+    metadata:
+      labels:
+        app: rpg_http
+    spec:
+      containers:
+        - name: rpg-http-container
+          image: rpg_backend
+          imagePullPolicy: Never
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rpg_http_entrypoint
+  namespace: default
+spec:
+  type: NodePort
+  selector:
+    app: rpg_http
+  ports:
+  - port: 9501
+    targetPort: 9501
+    nodePort: 30001
